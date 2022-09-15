@@ -36,11 +36,25 @@ def makeConnection(connection, host, port):
     except:
         sys.stderr.write("ERROR - A connection could not be established!")
         return False
-        #data = s.recv(1024)
-        #print('Received', repr(data))
 
+def getArguments(arg1, arg2, arg3):
+    num = len(sys.argv)
+    iterate = 1
+    while iterate <= num:
+        if iterate == 1:
+            arg1 = sys.argv[1]
+
+        elif iterate == 2:
+            arg2 = int(sys.argv[2])
+
+        else:
+            arg3 = sys.argv[3]
+
+        iterate += 1
 
 domain_name = "blank"
 port = 0
+file_name = "blank"
 client_cpu = 0
+getArguments(domain_name, port, file_name)
 makeConnection(client_cpu, domain_name, port)
