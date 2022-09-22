@@ -88,7 +88,7 @@ class client:
                 connection.send(sendbytes)
                 sendbytes = sendfile.read(1024)
 
-        except socket.error as err::
+        except socket.error as err:
             sys.stderr.write("ERROR: A connection could not be established!")
             sys.exit(0)
 
