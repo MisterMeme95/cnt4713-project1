@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import time
 import sys
 import socket
 
@@ -72,16 +73,10 @@ class client:
         #host= socket.gethostbyname(sys.argv[1])
         try:
 
-            #print("Argv 2 = {arger}".format(arger=sys.argv[2]))
-            #print("Type = {type}".format(type=type(sys.argv[2])))
-            #print("Client's port = {port}".format(port=self.host_port))
-        #    print("Type = {type}".format(type=type(self.host_port)))
             connection.connect((self.domain_name, self.host_port))
 
 
             data = connection.recv(1024)
-        #    for p in data:
-        #        print(p)
             print("Received #1 - {dater}".format(dater=data))
 
     #        f = open("file.txt", "rb")
@@ -100,6 +95,13 @@ class client:
             #print("Sent - {dater}".format(dater=stuff2))
 
 
+            sendfile = open("file.txt", "rb")
+            bytesegment = sendfile.read(1024)
+            while (l):
+                connection.send(bytesegment)
+                bytesegment = sendfile.read(1024)
+
+            #connection.send(sendfile)
         #    data = connection.recv(1024)
         #    for p in data:
         #        print(p)
