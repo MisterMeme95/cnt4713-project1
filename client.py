@@ -51,7 +51,7 @@ class client:
             if(isinstance(self.host_port, int)):
                 print("Port is an int!")
 
-                if self.host_port <= 65535  and self.host_port >= 1:
+                if self.host_port <= 65535  and self.host_port > 1023:
                     print("Port is in valid range!")
 
 
