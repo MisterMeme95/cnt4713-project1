@@ -19,6 +19,9 @@ def validatePort(port):
         #    print("Port is in valid range!")
             return True
 
+
+    sys.stderr.write("ERROR: Port is not in valid range!")
+    sys.exit(1)
     return False
 
 class client:
@@ -39,15 +42,6 @@ class client:
     #def makeConnection(connection, host, port):
         #port = int(sys.argv[2])
 
-    def validatePort(self, port):
-        if(isinstance(self.host_port, int)):
-        #    print("Port is an int!")
-
-            if self.host_port <= 65535  and self.host_port > 1023:
-        #        print("Port is in valid range!")
-                return True
-
-        return False
 
     def makeConnection(self):
         connection = 0
