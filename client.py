@@ -52,7 +52,7 @@ class client:
                 print("Port is an int!")
 
                 if self.host_port <= 65535  and self.host_port >= 1:
-                print("Port is in valid range!")
+                    print("Port is in valid range!")
 
 
         except socket.error as err:
