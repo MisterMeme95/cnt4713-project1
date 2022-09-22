@@ -11,6 +11,16 @@ import socket
 
 
 #These variables will be used for connectivity.
+def validatePort(port):
+    if(isinstance(port, int)):
+    #    print("Port is an int!")
+
+        if port <= 65535  and port > 1023:
+        #    print("Port is in valid range!")
+            return True
+
+    return False
+
 class client:
     domain_name = 0
     host_port = 0
@@ -28,6 +38,17 @@ class client:
 
     #def makeConnection(connection, host, port):
         #port = int(sys.argv[2])
+
+    def validatePort(self, port):
+        if(isinstance(self.host_port, int)):
+        #    print("Port is an int!")
+
+            if self.host_port <= 65535  and self.host_port > 1023:
+        #        print("Port is in valid range!")
+                return True
+
+        return False
+
     def makeConnection(self):
         connection = 0
         try:
@@ -44,21 +65,16 @@ class client:
         except socket.gaierror:
             sys.stderr.write("ERROR: The host could not be reached!")
             sys.exit(1)
-            return False
+            #return False
 
 
         try:
-            if(isinstance(self.host_port, int)):
-                print("Port is an int!")
-
-                if self.host_port <= 65535  and self.host_port > 1023:
-                    print("Port is in valid range!")
-
+            validatePort(self.host_port)
 
         except socket.error as err:
             sys.stderr.write("ERROR: Port is not in valid rang4e!")
             sys.exit(1)
-            return False
+            #return False
 
         #host= socket.gethostbyname(sys.argv[1])
         try:
@@ -103,7 +119,7 @@ class client:
             #print("Received:{dater}".format(dater=data))
 
         except:
-            sys.stderr.write("ERROR - A connection could not be established!")
+            sys.stderr.write("ERROR: A connection could not be established!")
             return False
 
 
