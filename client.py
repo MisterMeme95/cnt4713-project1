@@ -95,11 +95,12 @@ class client:
             #print("Sent - {dater}".format(dater=stuff2))
 
 
-            sendfile = open("file.txt", "rb")
-            bytesegment = sendfile.read(1024)
-            while (l):
-                connection.send(bytesegment)
-                bytesegment = sendfile.read(1024)
+            sendfile = open(self.file_name, "rb")
+            sendbytes = sendfile.read(1024)
+        #    l = sendfile.read(1024)
+            while (sendbytes):
+                connection.send(sendbytes)
+                sendbytes = sendfile.read(1024)
 
             #connection.send(sendfile)
         #    data = connection.recv(1024)
