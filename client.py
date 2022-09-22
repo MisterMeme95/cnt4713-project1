@@ -77,7 +77,7 @@ class client:
 
 
             data = connection.recv(1024)
-            print("Received #1 - {dater}".format(dater=data))
+        #    print("Received #1 - {dater}".format(dater=data))
 
     #        f = open("file.txt", "rb")
             #for data in f:
@@ -87,9 +87,8 @@ class client:
 
             data1=connection.recv(1024)
         #    print("Received #2 - {dater}".format(dater=data1))
-            print(stuff)
-
-            stuff1 = connection.send(b'confirm-accio-again\r\n')
+            #print(stuff)
+            connection.send(b'confirm-accio-again\r\n')
             #print("Sent - {dater}".format(dater=stuff1))
             stuff2 = connection.send(b'\r\n')
             #print("Sent - {dater}".format(dater=stuff2))
@@ -116,6 +115,7 @@ class client:
 
         except:
             sys.stderr.write("ERROR: A connection could not be established!")
+            sys.exit(1)
             return False
 
 
