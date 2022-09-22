@@ -11,59 +11,100 @@ import socket
 
 
 #These variables will be used for connectivity.
-def makeConnection(connection, host, port):
-    port = int(sys.argv[2])
-    try:
-        connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+class client:
+    domain_name = 0
+    host_port = 0
+    file_name = 0
 
-    except socket.error as err:
-        sys.stderr.write("ERROR - Socket Creation failed!")
-        return False
-
-    try:
-        host = socket.gethostbyname(sys.argv[1])
-
-    except socket.gaierror:
-        sys.stderr.write("ERROR - The host could not be reached!")
-        return False
+    def __init__(self):
+        #self.argHandler(self.domain_name, self.host_port, self.file_name)
+        self.domain_name = sys.argv[1]
+        self.host_port = int(sys.argv[2])
+        #print("Arg2 = {arger2}".format(arger2=sys.argv[2]))
+        self.file_name = sys.argv[3]
+        #print("Arg3 = {arger3}".format(arger3=sys.argv[3]))
+        #self.year = year
 
 
-    try:
-        connection.connect((host, port))
-        data = connection.recv(1024)
-    #    for p in data:
-    #        print(p)
-        print("Received #1 - {dater}".format(dater=data))
+    #def makeConnection(connection, host, port):
+        #port = int(sys.argv[2])
+    def makeConnection(self):
+        connection = 0
+        try:
+            connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            #print("Connection made successfully!")
+        except socket.error as err:
+            sys.stderr.write("ERROR: Socket Creation failed!")
+            sys.exit(1)
+            return False
 
-        f = open("file.txt", "rb")
-        #for data in f:
-            #print("Starting sending. . ")
-        stuff = connection.send(b'confirm-accio\r\n')
-        print("Sent - {dater}".format(dater=stuff))
+        try:
+            self.domain_name = socket.gethostbyname(self.domain_name)
 
-        data1=connection.recv(1024)
-        print("Received #2 - {dater}".format(dater=data1))
-            #print(stuff)
-        stuff1 = connection.send(b'confirm-accio-again\r\n')
-        print("Sent - {dater}".format(dater=stuff1))
-        stuff2 = connection.send(b'\r\n')
-        print("Sent - {dater}".format(dater=stuff2))
-        #print("SENT - confirm-accio\r\n")
+        except socket.gaierror:
+            sys.stderr.write("ERROR: The host could not be reached!")
+            sys.exit(1)
+            return False
 
-    #    data = connection.recv(1024)
-    #    for p in data:
-    #        print(p)
-        #data = connection.recv(1024)
-        #print("Received - {dater}".format(dater=data))
 
-        #f = connection.send(1024)
-        #connection.send("Twenty-five bytes to send")
-        #data = connection.recv(1024)
-        #print("Received:{dater}".format(dater=data))
+        try:
+            if(isinstance(self.host_port, int)):
+                print("Port is an int!")
 
-    except:
-        sys.stderr.write("ERROR - A connection could not be established!")
-        return False
+                if self.host_port <= 65535  and self.host_port >= 1:
+                print("Port is in valid range!")
+
+
+        except socket.error as err:
+            sys.stderr.write("ERROR: Port is not in valid rang4e!")
+            sys.exit(1)
+            return False
+
+        #host= socket.gethostbyname(sys.argv[1])
+        try:
+
+            #print("Argv 2 = {arger}".format(arger=sys.argv[2]))
+            #print("Type = {type}".format(type=type(sys.argv[2])))
+            #print("Client's port = {port}".format(port=self.host_port))
+        #    print("Type = {type}".format(type=type(self.host_port)))
+            connection.connect((self.domain_name, self.host_port))
+
+
+            data = connection.recv(1024)
+        #    for p in data:
+        #        print(p)
+            print("Received #1 - {dater}".format(dater=data))
+
+    #        f = open("file.txt", "rb")
+            #for data in f:
+                #print("Starting sending. . ")
+            stuff = connection.send(b'confirm-accio\r\n')
+            #print("Sent - {dater}".format(dater=stuff))
+
+            data1=connection.recv(1024)
+        #    print("Received #2 - {dater}".format(dater=data1))
+            print(stuff)
+
+            stuff1 = connection.send(b'confirm-accio-again\r\n')
+            #print("Sent - {dater}".format(dater=stuff1))
+            stuff2 = connection.send(b'\r\n')
+            #print("Sent - {dater}".format(dater=stuff2))
+
+
+        #    data = connection.recv(1024)
+        #    for p in data:
+        #        print(p)
+            #data = connection.recv(1024)
+            #print("Received - {dater}".format(dater=data))
+
+            #f = connection.send(1024)
+            #connection.send("Twenty-five bytes to send")
+            #data = connection.recv(1024)
+            #print("Received:{dater}".format(dater=data))
+
+        except:
+            sys.stderr.write("ERROR - A connection could not be established!")
+            return False
 
 
 
@@ -87,13 +128,21 @@ def makeConnection(connection, host, port):
 #        iterate += 1
 
 
-domain_name = "blank"
-port = 0
-file_name = "blank"
-client_cpu = 0
-domain_name = sys.argv[1]
-port = int(sys.argv[2])
-file_name = sys.argv[3]
+#domain_name = "blank"
+#port = 0
+#file_name = "blank"
+#client_cpu = 0
+#domain_name = 0
+#port = 0
+#file_name = 0
+host = client()
+
+#argHandler(domain_name, port, file_name)
+#print("Arg Handler Complete!")
+#print("Domain Name: {domain}".format(domain=domain_name))
+#print("Port: {porter}".format(porter=port))
+#print("File Name: {filename}".format(filename=file_name))
+
 #f = open(file_name, "rb")
 #connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #host = socket.gethostbyname(sys.argv[1])
@@ -108,4 +157,4 @@ file_name = sys.argv[3]
 
 #data = connection.recv(1024)
 #print("Received:{dater}".format(dater=data))
-makeConnection(client_cpu, domain_name, port)
+host.makeConnection()
