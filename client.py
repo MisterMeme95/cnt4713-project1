@@ -12,17 +12,16 @@ import socket
 
 #These variables will be used for connectivity.
 def validatePort(port):
-    if(isinstance(port, int)):
+    if not isinstance(port, int):
+        sys.stderr.write("ERROR: Port is not an integer!")
+        sys.exit(1)
     #    print("Port is an int!")
 
-        if port <= 65535  and port > 1023:
-        #    print("Port is in valid range!")
-            return True
+    if not 1 <= port <= 65535:
+        sys.stderr.write("ERROR: Port is not valid range.")
+        sys.exit(1)
 
 
-    sys.stderr.write("ERROR: Port is not in valid range!")
-    sys.exit(1)
-    return False
 
 class client:
     domain_name = 0
