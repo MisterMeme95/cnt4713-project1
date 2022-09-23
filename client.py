@@ -74,25 +74,57 @@ class client:
             connection.connect((self.domain_name, self.host_port))
 
 
+        except socket.error as err:
+            sys.stderr.write("ERROR: A connection could not be established!")
+            sys.exit(1)
+
+
+
+        try:
+
             data = connection.recv(1024)
+
+        except socket.error as err:
+            sys.stderr.write("ERROR: Message could not be received!")
+            sys.exit(1)
+
+        try:
             stuff = connection.send(b'confirm-accio\r\n')
 
+        except socket.error as err:
+            sys.stderr.write("ERROR: First confirmation failed!")
+            sys.exit(1)
+
+        try:
             data1=connection.recv(1024)
+
+        except socket.error as err:
+            sys.stderr.write("ERROR: Second message failed to be received!")
+            sys.exit(1)
+
+        try:
             connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
+        except socket.error as err:
+            sys.stderr.write("ERROR: Second confirmation failed!")
+            sys.exit(1)
+
+
+
+        try:
             sendfile = open(self.file_name, "rb")
             sendbytes = sendfile.read(1024)
-
             while (sendbytes):
                 connection.send(sendbytes)
                 sendbytes = sendfile.read(1024)
 
         except socket.error as err:
-            sys.stderr.write("ERROR: A connection could not be established!")
-            sys.exit(0)
+            sys.stderr.write("File could not be sent!")
+            sys.exit(1)
 
 
+        connection.close()
 
 
 host = client()
