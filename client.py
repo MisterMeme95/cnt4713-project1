@@ -58,8 +58,8 @@ class client:
 
         except socket.gaierror:
             sys.stderr.write("ERROR: The host could not be reached!")
-    #        sys.exit(1)
-            return False
+            sys.exit(1)
+            #return False
 
 
         try:
