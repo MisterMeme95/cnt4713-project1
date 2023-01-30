@@ -88,6 +88,8 @@ class client:
             while (sendbytes):
                 connection.send(sendbytes)
                 sendbytes = sendfile.read(1024)
+                if len(sendbytes) == 0: break
+
 
         except socket.gaierror:
             sys.stderr.write("ERROR: A connection could not be established!")
