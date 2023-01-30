@@ -91,8 +91,7 @@ class client:
 
         except socket.error as err:
             sys.stderr.write("ERROR: A connection could not be established!")
-            time.sleep(10)
-            return False
+            sys.exit(1)
             #sys.exit(1)
 
 
