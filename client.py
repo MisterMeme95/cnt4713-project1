@@ -50,16 +50,17 @@ class client:
             connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #print("Connection made successfully!")
         except socket.error as err:
-            sys.stderr.write("ERROR:Socket Creation failed!")
+            sys.stderr.write("ERROR: Socket Creation failed!")
+            sys.exit(1)
             return False
 
         try:
             self.domain_name = socket.gethostbyname(self.domain_name)
 
         except socket.gaierror:
-            sys.stderr.write("ERROR:The host could not be reached!")
-            #sys.exit(1)
-            return False
+            sys.stderr.write("ERROR: The host could not be reached!")
+            sys.exit(1)
+            #return False
 
 
         try:
