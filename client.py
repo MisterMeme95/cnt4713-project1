@@ -17,6 +17,7 @@ def validatePort(port):
         sys.stderr.write("ERROR: Port is not an integer!")
         sys.exit(1)
     #    print("Port is an int!")
+    #   Last check
 
     if not 1 <= port <= 65535:
         sys.stderr.write("ERROR: Port is not valid range.")
