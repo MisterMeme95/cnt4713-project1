@@ -94,7 +94,7 @@ class client:
 
         except:
             print("ERROR: A connection was not established!")
-            sys.stderr.write("ERROR: A connection could not be established!")
+            #sys.stderr.write("ERROR: A connection could not be established!")
             return False
             #sys.exit(1)
 
