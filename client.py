@@ -52,7 +52,7 @@ class client:
         except socket.error as err:
             sys.stderr.write("ERROR: Socket Creation failed!")
             sys.exit(1)
-
+            return False
 
         try:
             self.domain_name = socket.gethostbyname(self.domain_name)
@@ -93,11 +93,10 @@ class client:
 
 
 
-        except:
-            #print("ERROR: A connection was not established!")
+        except socket.gaierror:
             sys.stderr = print("ERROR: A connection could not be established!")
             return False
-            #sys.exit(1)
+            sys.exit(1)
 
 
 
