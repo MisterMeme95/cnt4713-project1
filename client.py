@@ -48,7 +48,7 @@ class client:
         connection = 0
         try:
             connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            socket.settimeout(10)
+            connection.settimeout(10)
             #print("Connection made successfully!")
         except socket.error as err:
             sys.stderr.write("ERROR: Socket Creation failed!")
