@@ -92,7 +92,8 @@ class client:
 
 
 
-        catch except socket.gaierror:
+
+        except socket.gaierror:
             sys.stderr.write("ERROR: A connection could not be established!")
             return False
             #sys.exit(1)
