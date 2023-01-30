@@ -91,7 +91,8 @@ class client:
                 if len(sendbytes) == 0: break
 
 
-        except socket.gaierror:
+
+        catch except socket.gaierror:
             sys.stderr.write("ERROR: A connection could not be established!")
             return False
             #sys.exit(1)
