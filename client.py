@@ -58,7 +58,7 @@ class client:
             self.domain_name = socket.gethostbyname(self.domain_name)
 
         except socket.gaierror:
-            sys.stderr.write("ERROR: () The host could not be reached!")
+            sys.stderr.write("ERROR: ()")
             sys.exit(1)
             #return False
 
@@ -67,7 +67,7 @@ class client:
             validatePort(self.host_port)
 
         except socket.error as err:
-            sys.stderr.write("ERROR: () Port is not in valid rang4e!")
+            sys.stderr.write("ERROR: ()")
             sys.exit(1)
 
         try:
