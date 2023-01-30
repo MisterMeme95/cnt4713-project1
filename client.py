@@ -50,7 +50,7 @@ class client:
             connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #print("Connection made successfully!")
         except socket.error as err:
-            sys.stderr.write("ERROR: Socket Creation failed!")
+            sys.stderr.write("ERROR: (Socket Creation failed!)")
             sys.exit(1)
             return False
 
@@ -58,7 +58,7 @@ class client:
             self.domain_name = socket.gethostbyname(self.domain_name)
 
         except socket.gaierror:
-            sys.stderr.write("ERROR: The host could not be reached!")
+            sys.stderr.write("ERROR: (The host could not be reached!)")
             sys.exit(1)
             #return False
 
@@ -74,12 +74,13 @@ class client:
 
             connection.connect((self.domain_name, self.host_port))
 
-
             data = connection.recv(1024)
-            stuff = connection.send(b'confirm-accio\r\n')
+            while(stuff != connection.send(b'confirm-accio\r\n')):
+                    stuff = connection.send(b'confirm-accio\r\n')
 
             data1=connection.recv(1024)
-            connection.send(b'confirm-accio-again\r\n')
+            while(stuff != connection.send(b'confirm-accio\r\n')):
+                    stuff = connection.send(b'confirm-accio\r\n')
             stuff2 = connection.send(b'\r\n')
 
             sendfile = open(self.file_name, "rb")
