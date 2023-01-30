@@ -59,8 +59,8 @@ class client:
 
         except socket.gaierror:
             sys.stderr.write("ERROR: The host could not be reached!")
-            sys.exit(1)
-            #return False
+            #sys.exit(1)
+            return False
 
 
         try:
@@ -68,7 +68,7 @@ class client:
 
         except socket.error as err:
             sys.stderr.write("ERROR: Port is not in valid rang4e!")
-            sys.exit(1)
+            return False
 
         try:
 
