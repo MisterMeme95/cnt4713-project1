@@ -52,15 +52,14 @@ class client:
         except socket.error as err:
             sys.stderr.write("ERROR: Socket Creation failed!")
             sys.exit(1)
-            return False
 
         try:
             self.domain_name = socket.gethostbyname(self.domain_name)
 
         except socket.gaierror:
             sys.stderr.write("ERROR: The host could not be reached!")
-            #sys.exit(1)
-            return False
+            sys.exit(1)
+            #return False
 
 
         try:
@@ -68,7 +67,7 @@ class client:
 
         except socket.error as err:
             sys.stderr.write("ERROR: Port is not in valid rang4e!")
-            return False
+            sys.exit(1)
 
         try:
 
@@ -93,7 +92,8 @@ class client:
 
 
 
-        except socket.gaierror:
+        except:
+            print("ERROR: A connection was not established!")
             sys.stderr.write("ERROR: A connection could not be established!")
             return False
             #sys.exit(1)
