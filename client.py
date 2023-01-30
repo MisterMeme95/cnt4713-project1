@@ -48,7 +48,6 @@ class client:
         connection = 0
         try:
             connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            connection.settimeout(10)
             #print("Connection made successfully!")
         except socket.error as err:
             sys.stderr.write("ERROR: Socket Creation failed!")
@@ -76,10 +75,12 @@ class client:
             connection.connect((self.domain_name, self.host_port))
 
             data = connection.recv(1024)
+            connection.settimeout(10)
             stuff = connection.send(b'confirm-accio\r\n')
 
 
             data1=connection.recv(1024)
+            connection.settimeout(10)
             connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
