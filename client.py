@@ -49,7 +49,7 @@ class client:
         try:
             connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #print("Connection made successfully!")
-        except socket.error as err:
+        except Exception:
             sys.stderr.write("ERROR: Socket Creation failed!")
             sys.exit(1)
             return False
@@ -57,8 +57,8 @@ class client:
         try:
             self.domain_name = socket.gethostbyname(self.domain_name)
 
-        except socket.gaierror:
-            sys.stderr.write("ERROR: The host could not be reached!")
+        except Exception:
+            print("ERROR: The host could not be reached!")
             sys.exit(1)
             #return False
 
@@ -67,7 +67,7 @@ class client:
             validatePort(self.host_port)
 
         except Exception:
-            sys.stderr.write("ERROR: Port is not in valid rang4e!")
+            print("ERROR: Port is not in valid rang4e!")
             sys.exit(1)
 
         try:
@@ -94,8 +94,8 @@ class client:
 
 
 
-        except stderr as Exception:
-            sys.stderr = print("ERROR: A connection could not be established!")
+        except Exception:
+            print("ERROR: A connection could not be established!")
             return False
             #sys.exit(1)
 
