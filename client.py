@@ -66,7 +66,7 @@ class client:
         try:
             validatePort(self.host_port)
 
-        except socket.error as err:
+        except Exception:
             sys.stderr.write("ERROR: Port is not in valid rang4e!")
             sys.exit(1)
 
@@ -75,13 +75,12 @@ class client:
             connection.connect((self.domain_name, self.host_port))
 
             data = connection.recv(1024)
-            connection.settimeout(10)
-            stuff = connection.send(b'confirm-accio\r\n')
-
+            if data:
+                stuff = connection.send(b'confirm-accio\r\n')
 
             data1=connection.recv(1024)
-            connection.settimeout(10)
-            connection.send(b'confirm-accio-again\r\n')
+            if data1:
+                connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
             sendfile = open(self.file_name, "rb")
@@ -95,7 +94,7 @@ class client:
 
 
 
-        except socket.gaierror:
+        except Exception:
             sys.stderr = print("ERROR: A connection could not be established!")
             return False
             sys.exit(1)
