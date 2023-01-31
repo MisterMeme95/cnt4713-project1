@@ -94,10 +94,10 @@ class client:
 
 
 
-        except Exception:
+        except stderr as Exception:
             sys.stderr = print("ERROR: A connection could not be established!")
             return False
-            sys.exit(1)
+            #sys.exit(1)
 
 
 
