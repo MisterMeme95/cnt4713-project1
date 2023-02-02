@@ -49,7 +49,7 @@ class client:
         try:
             connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             #print("Connection made successfully!")
-        except Exception:
+        except socket.error as err:
             sys.stderr.write("ERROR: Socket Creation failed!")
             sys.exit(1)
             return False
@@ -57,8 +57,8 @@ class client:
         try:
             self.domain_name = socket.gethostbyname(self.domain_name)
 
-        except Exception:
-            print("ERROR: The host could not be reached!")
+        except socket.gaierror:
+            sys.stderr.write("ERROR: The host could not be reached!")
             sys.exit(1)
             #return False
 
@@ -66,48 +66,25 @@ class client:
         try:
             validatePort(self.host_port)
 
-        except Exception:
-            print("ERROR: Port is not in valid rang4e!")
+        except socket.error as err:
+            sys.stderr.write("ERROR: Port is not in valid rang4e!")
             sys.exit(1)
 
         try:
 
             connection.connect((self.domain_name, self.host_port))
 
-
-#            data = connection.recv(1024)
-#            if data:
-#                stuff = connection.send(b'confirm-accio\r\n')
-#
-#            data1=connection.recv(1024)
-#            if data1:
-#                connection.send(b'confirm-accio-again\r\n')
-#            stuff2 = connection.send(b'\r\n')
-#
-
-            while True:
-                data = connection.recv(1024)
-
-                if not data:
-                    break
-
-                stuff = connection.send(b'confirm-accio\r\n')
+            data = connection.recv(1024)
+            connection.settimeout(10)
+            stuff = connection.send(b'confirm-accio\r\n')
 
 
-            while True:
-                data = connection.recv(1024)
-
-                if not data:
-                    break
-
-                stuff = connection.send(b'confirm-accio\r\n')
-
+            data1=connection.recv(1024)
+            connection.settimeout(10)
+            connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
-
             sendfile = open(self.file_name, "rb")
-
-            
             sendbytes = sendfile.read(1024)
 
             while (sendbytes):
@@ -116,13 +93,12 @@ class client:
                 if len(sendbytes) == 0: break
 
 
-            connection.close()
 
-        except Exception:
-            print("ERROR: A connection could not be established!")
-            connection.close()
+
+        except socket.gaierror:
+            sys.stderr = print("ERROR: A connection could not be established!")
             return False
-            #sys.exit(1)
+            sys.exit(1)
 
 
 
