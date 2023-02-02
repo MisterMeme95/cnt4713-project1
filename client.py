@@ -92,10 +92,11 @@ class client:
                 if len(sendbytes) == 0: break
 
 
-
+            connection.close()
 
         except Exception:
             print("ERROR: A connection could not be established!")
+            connection.close()
             return False
             #sys.exit(1)
 
