@@ -74,16 +74,40 @@ class client:
 
             connection.connect((self.domain_name, self.host_port))
 
-            data = connection.recv(1024)
-            if data:
+
+#            data = connection.recv(1024)
+#            if data:
+#                stuff = connection.send(b'confirm-accio\r\n')
+#
+#            data1=connection.recv(1024)
+#            if data1:
+#                connection.send(b'confirm-accio-again\r\n')
+#            stuff2 = connection.send(b'\r\n')
+#
+
+            while True:
+                data = connection.recv(1024)
+
+                if not data:
+                    break
+
                 stuff = connection.send(b'confirm-accio\r\n')
 
-            data1=connection.recv(1024)
-            if data1:
-                connection.send(b'confirm-accio-again\r\n')
+
+            while True:
+                data = connection.recv(1024)
+
+                if not data:
+                    break
+
+                stuff = connection.send(b'confirm-accio\r\n')
+
             stuff2 = connection.send(b'\r\n')
 
+
             sendfile = open(self.file_name, "rb")
+
+            
             sendbytes = sendfile.read(1024)
 
             while (sendbytes):
