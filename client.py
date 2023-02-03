@@ -88,8 +88,9 @@ class client:
 
             while True:
                 sendbytes = sendfile.read(1024)
-                if not sendbytes:
+                if len(sendbytes) == 0:
                     break
+        
             #sendbytes = sendfile.read(1024)
 
             #while (sendbytes):
