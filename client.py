@@ -99,7 +99,7 @@ class client:
             sendfile = open(self.file_name, "rb")
 
             while True:
-                sendbytes = sendfile.read(1024)
+                sendbytes = sendfile.read(10000)
                 if len(sendbytes) == 0:
                     break
                 connection.send(sendbytes)
