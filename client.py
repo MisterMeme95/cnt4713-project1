@@ -75,12 +75,12 @@ class client:
             connection.connect((self.domain_name, self.host_port))
 
             data = connection.recv(1024)
-            connection.settimeout(10)
+            #connection.settimeout(10)
             stuff = connection.send(b'confirm-accio\r\n')
 
 
             data1=connection.recv(1024)
-            connection.settimeout(10)
+            #connection.settimeout(10)
             connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
@@ -90,7 +90,7 @@ class client:
                 sendbytes = sendfile.read(1024)
                 if len(sendbytes) == 0:
                     break
-        
+                connection.send(sendbytes)
             #sendbytes = sendfile.read(1024)
 
             #while (sendbytes):
