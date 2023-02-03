@@ -72,6 +72,7 @@ class client:
 
         try:
 
+            connection.settimeout(10)
             connection.connect((self.domain_name, self.host_port))
 
             data = connection.recv(1024)
@@ -91,6 +92,15 @@ class client:
                 if len(sendbytes) == 0:
                     break
                 connection.send(sendbytes)
+
+
+        #    while True:
+    #            sendbytes = sendfile.read(1024)
+    #            sizeoft = sys.getsizeof(sendbytes)
+    #            if sizeoft <= 0:
+    #                break
+    #            connection.send(sendbytes)
+
             #sendbytes = sendfile.read(1024)
 
             #while (sendbytes):
