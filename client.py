@@ -77,22 +77,18 @@ class client:
             connection.connect((self.domain_name, self.host_port))
 
             while True:
+
                 data = connection.recv(1024)
-                if len(data) == 0:
+                if not data:
                     break
-                while True:
-                    stuff = connection.send(b'confirm-accio\r\n')
-                    if len(stuff) == 0:
-                        break
+                stuff = connection.send(b'confirm-accio\r\n')
 
             while True:
                 data = connection.recv(1024)
-                if len(data) == 0:
+                if not data:
                     break
-                while True:
-                    stuff = connection.send(b'confirm-accio\r\n')
-                    if len(stuff) == 0:
-                        break
+
+                stuff = connection.send(b'confirm-accio\r\n')
 
 
             #data1=connection.recv(1024)
