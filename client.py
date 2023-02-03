@@ -72,7 +72,7 @@ class client:
 
         try:
 
-            sys.stderr.write("Error: ")
+            sys.stderr.write("ERROR: ")
             connection.settimeout(10)
             connection.connect((self.domain_name, self.host_port))
 
