@@ -78,11 +78,12 @@ class client:
             while True:
                 data = connection.recv(1024)
                 if data:
+                    stuff = connection.send(b'confirm-accio\r\n')
                     break
 
-            data = connection.recv(1024)
+            #data = connection.recv(1024)
             #connection.settimeout(10)
-            stuff = connection.send(b'confirm-accio\r\n')
+        #    stuff = connection.send(b'confirm-accio\r\n')
 
 
             data1=connection.recv(1024)
