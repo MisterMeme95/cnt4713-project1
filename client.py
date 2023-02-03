@@ -110,9 +110,9 @@ class client:
 
 
 
-
-        except socket.gaierror:
-            sys.stderr = print("ERROR: A connection could not be established!")
+        except socket.error:
+            print("ERROR: Connection failed!")
+            #sys.stderr = print("ERROR: A connection could not be established!")
             return False
             sys.exit(1)
 
