@@ -85,12 +85,17 @@ class client:
             stuff2 = connection.send(b'\r\n')
 
             sendfile = open(self.file_name, "rb")
-            sendbytes = sendfile.read(1024)
 
-            while (sendbytes):
-                connection.send(sendbytes)
+            while True:
                 sendbytes = sendfile.read(1024)
-                if len(sendbytes) == 0: break
+                if not sendbytes:
+                    break
+            #sendbytes = sendfile.read(1024)
+
+            #while (sendbytes):
+                ##connection.send(sendbytes)
+            #    sendbytes = sendfile.read(1024)
+            #    if len(sendbytes) == 0: break
 
 
 
