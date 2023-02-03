@@ -81,20 +81,20 @@ class client:
             #connection.settimeout(10)
     #        stuff = connection.send(b'confirm-accio\r\n')
 
-            while True:
-                data = connection.recv(1024)
-                if not data:
-                    break
+            #while True:
+            data = connection.recv(1024)
+                #if not data:
+                #    break
             #connection.settimeout(10)
-                stuff = connection.send(b'confirm-accio\r\n')
+            stuff = connection.send(b'confirm-accio\r\n')
 
 
-            while True:
-                data1 = connection.recv(1024)
-                if not data1:
-                    break
+        #    while True:
+            data1 = connection.recv(1024)
+            #    if not data1:
+            #        break
             #connection.settimeout(10)
-                stuff1 = connection.send(b'confirm-accio\r\n')
+            stuff1 = connection.send(b'confirm-accio\r\n')
 
             #data1=connection.recv(1024)
             #connection.settimeout(10)
