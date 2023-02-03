@@ -112,9 +112,10 @@ class client:
 
 
         except socket.error:
+
             print("ERROR: Connection failed!")
             #sys.stderr = print("ERROR: A connection could not be established!")
-            return False
+            return 1
             #sys.exit(1)
 
 
