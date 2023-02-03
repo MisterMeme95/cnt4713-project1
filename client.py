@@ -79,16 +79,21 @@ class client:
                 data = connection.recv(1024)
                 if data:
                     stuff = connection.send(b'confirm-accio\r\n')
-                    break
 
+                    while True:
+                        data1=connection.recv(1024)
+                        if data1:
+                            stuff2 = connection.send(b'confirm-accio-again\r\n')
+                            break
+                    break
             #data = connection.recv(1024)
             #connection.settimeout(10)
         #    stuff = connection.send(b'confirm-accio\r\n')
 
 
-            data1=connection.recv(1024)
+        #    data1=connection.recv(1024)
             #connection.settimeout(10)
-            connection.send(b'confirm-accio-again\r\n')
+        #    connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
             sendfile = open(self.file_name, "rb")
