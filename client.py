@@ -86,7 +86,7 @@ class client:
                 if not data:
                     break
             #connection.settimeout(10)
-            stuff = connection.send(b'confirm-accio\r\n')
+                stuff = connection.send(b'confirm-accio\r\n')
 
 
             while True:
@@ -94,7 +94,7 @@ class client:
                 if not data1:
                     break
             #connection.settimeout(10)
-            stuff1 = connection.send(b'confirm-accio\r\n')
+                stuff1 = connection.send(b'confirm-accio\r\n')
 
             #data1=connection.recv(1024)
             #connection.settimeout(10)
