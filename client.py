@@ -88,7 +88,7 @@ class client:
 
             while True:
                 sendbytes = sendfile.read(1024)
-                if len(sendbytes) == 0:
+                if sys.getsizeof(sendbytes) <= 0:
                     break
                 connection.send(sendbytes)
             #sendbytes = sendfile.read(1024)
