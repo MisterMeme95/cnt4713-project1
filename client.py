@@ -72,6 +72,7 @@ class client:
 
         try:
 
+            sys.stderr.write("Error: ")
             connection.settimeout(10)
             connection.connect((self.domain_name, self.host_port))
 
@@ -113,8 +114,8 @@ class client:
         except socket.error:
             print("ERROR: Connection failed!")
             #sys.stderr = print("ERROR: A connection could not be established!")
-            #return False
-            sys.exit(1)
+            return False
+            #sys.exit(1)
 
 
 
