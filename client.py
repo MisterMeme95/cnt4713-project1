@@ -78,10 +78,10 @@ class client:
             data = connection.recv(1024)
             connection.send(b'confirm-accio\r\n')
 
-            data = connection.recv(1024)
+            data1 = connection.recv(1024)
             connection.send(b'confirm-accio\r\n')
 
-              
+
         #    while True:
             #    data = connection.recv(1024)
             #    if not data:
