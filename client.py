@@ -76,31 +76,14 @@ class client:
             connection.settimeout(10)
             connection.connect((self.domain_name, self.host_port))
 
-
-        #    data = connection.recv(1024)
-            #connection.settimeout(10)
-    #        stuff = connection.send(b'confirm-accio\r\n')
-
-            #while True:
             data = connection.recv(1024)
-                #if not data:
-                #    break
             #connection.settimeout(10)
             stuff = connection.send(b'confirm-accio\r\n')
 
 
-        #    while True:
-            data1 = connection.recv(1024)
-            #    if not data1:
-            #        break
+            data1=connection.recv(1024)
             #connection.settimeout(10)
-            stuff1 = connection.send(b'confirm-accio\r\n')
-
-            #data1=connection.recv(1024)
-            #connection.settimeout(10)
-            #connection.send(b'confirm-accio-again\r\n')
-
-
+            connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
             sendfile = open(self.file_name, "rb")
