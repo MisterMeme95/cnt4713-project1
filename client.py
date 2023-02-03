@@ -75,20 +75,25 @@ class client:
             sys.stderr.write("ERROR: ")
             connection.settimeout(10)
             connection.connect((self.domain_name, self.host_port))
+            data = connection.recv(1024)
+            connection.send(b'confirm-accio\r\n')
 
-            while True:
+            data = connection.recv(1024)
+            connection.send(b'confirm-accio\r\n')
 
-                data = connection.recv(1024)
-                if not data:
-                    break
-                stuff = connection.send(b'confirm-accio\r\n')
+              
+        #    while True:
+            #    data = connection.recv(1024)
+            #    if not data:
+            #        break
+            #    stuff = connection.send(b'confirm-accio\r\n')
 
-            while True:
-                data = connection.recv(1024)
-                if not data:
-                    break
+            #while True:
+            #    data = connection.recv(1024)
+            #    if not data:
+            #        break
 
-                stuff = connection.send(b'confirm-accio\r\n')
+            #    stuff = connection.send(b'confirm-accio\r\n')
 
 
             #data1=connection.recv(1024)
