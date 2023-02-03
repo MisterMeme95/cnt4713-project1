@@ -75,39 +75,21 @@ class client:
             sys.stderr.write("ERROR: ")
             connection.settimeout(10)
             connection.connect((self.domain_name, self.host_port))
+
             data = connection.recv(1024)
-            connection.send(b'confirm-accio\r\n')
-
-            data1 = connection.recv(1024)
-            connection.send(b'confirm-accio\r\n')
-
-
-        #    while True:
-            #    data = connection.recv(1024)
-            #    if not data:
-            #        break
-            #    stuff = connection.send(b'confirm-accio\r\n')
-
-            #while True:
-            #    data = connection.recv(1024)
-            #    if not data:
-            #        break
-
-            #    stuff = connection.send(b'confirm-accio\r\n')
-
-
-            #data1=connection.recv(1024)
             #connection.settimeout(10)
-            #connection.send(b'confirm-accio-again\r\n')
+            stuff = connection.send(b'confirm-accio\r\n')
 
+
+            data1=connection.recv(1024)
+            #connection.settimeout(10)
+            connection.send(b'confirm-accio-again\r\n')
             stuff2 = connection.send(b'\r\n')
 
             sendfile = open(self.file_name, "rb")
 
             while True:
                 sendbytes = sendfile.read(1024)
-                #packet_size = sys.getsizeof(sendbytes)
-                #if packet_size == 0:
                 if len(sendbytes) == 0:
                     break
                 connection.send(sendbytes)
