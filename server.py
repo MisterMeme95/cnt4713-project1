@@ -1,92 +1,77 @@
-#!/usr/bin/env python3
-
-import time
-import sys
 import socket
+import sys
 import signal
+import time
 
-if __name__ == '__main__':
-    sys.stderr.write("server is not implemented yet\n")
+# define signal handler function
+def signal_handler(signal, frame):
+    global not_stopped
+    print('Exiting gracefully...')
+    not_stopped = False
 
+# register signal handlers
+signal.signal(signal.SIGQUIT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
 
+# parse command line arguments
+if len(sys.argv) < 3:
+    sys.stderr.write('ERROR: Missing arguments\n')
+    sys.exit(1)
 
-def validatePort(port):
-    if not isinstance(port, int):
-        sys.stderr.write("ERROR: Port is not an integer!")
-        sys.exit(1)
+host = sys.argv[1]
+port = int(sys.argv[2])
 
-    if not 1 <= port <= 65535:
-        sys.stderr.write("ERROR: Port is not valid range.")
-        sys.exit(1)
+# create a socket object
+client_socket = socket.socket()
 
+# connect to the server
+client_socket.connect((host, port))
 
+# send accio command to the server
+client_socket.send(b'accio\r\n')
 
-class server:
-    domain_name = 0
-    host_port = 0
+# receive data from the server
+total_len = 0
+data = client_socket.recv(1024)
+while data:
+    total_len += len(data)
+    data = client_socket.recv(1024)
 
-    def __init__(self):
-        #self.domain_name = sys.argv[1]
-        self.host_port = int(sys.argv[1])
+# print out the total amount of data received
+print(f'Total amount of data received: {total_len} bytes')
 
+# close the connection
+client_socket.close()
 
-    def makeConnection(self):
-        server_socket = socket.socket()
-        try:
+# set up server socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(('', port))
+server_socket.listen(1)
 
-            server_socket.listen(10)
-            #server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+not_stopped = True
 
-        except:
-            sys.stderr.write('ERROR: Invalid port number\n')
-            sys.exit(1)
+# accept incoming connections
+while not_stopped:
+    try:
+        # wait for a client to connect
+        client_socket, address = server_socket.accept()
+        print(f'Accepted connection from {address}')
 
+        # receive data from the client
+        total_len = 0
+        data = client_socket.recv(1024)
+        while data:
+            total_len += len(data)
+            data = client_socket.recv(1024)
 
-        try:
-            server_socket.listen(10)
-            #server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # print out the total amount of data received
+        print(f'Total amount of data received from {address}: {total_len} bytes')
 
-        except:
-            sys.stderr.write('ERROR: Invalid port number\n')
-            sys.exit(1)
+        # close the connection
+        client_socket.close()
+    except KeyboardInterrupt:
+        # exit gracefully if a keyboard interrupt is received
+        not_stopped = False
 
-
-
-        server_socket.settimeout(10)
-
-        try:
-            server_socket.listen(10)
-            #server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        except:
-            sys.stderr.write('ERROR: Invalid port number\n')
-            sys.exit(1)
-
-
-        try:
-            # read data from the client
-            data = server_socket.recv(1024)
-            total_len = len(data)
-            while data:
-                data = server_socket.recv(1024)
-                total_len += len(data)
-            # send the total length of the data received back to the client
-            server_socket.send(str(total_len).encode())
-        except socket.timeout:
-            # if the client doesn't send any data for 10 seconds, abort the connection
-            server_socket.send(b'ERROR')
-            print(f'Connection with {addr} timed out')
-            
-        except ConnectionResetError:
-            # if the client resets the connection, just print a message and continue
-            print(f'Connection with {addr} reset by client')
-        finally:
-            # close the connection
-            conn.close()
-
-
-
-
-
-host = server()
-host.makeConnection()
+server_socket.close()
