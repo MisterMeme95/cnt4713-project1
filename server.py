@@ -3,6 +3,7 @@
 import time
 import sys
 import socket
+import signal
 
 if __name__ == '__main__':
     sys.stderr.write("server is not implemented yet\n")
@@ -30,66 +31,58 @@ class server:
 
 
     def makeConnection(self):
-        connection = 0
+        server_socket = socket.socket()
         try:
-            server_socket.bind(('0.0.0.0', host_port))
-            server_socket.listen(1)
+
+            server_socket.listen(10)
             #server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        except socket.error as err:
-            sys.stderr.write("ERROR: Socket Creation failed!")
-            sys.exit(1)
-            return False
-
-        try:
-            self.domain_name = socket.gethostbyname(self.domain_name)
-
-        except socket.gaierror:
-            sys.stderr.write("ERROR: The host could not be reached!")
+        except:
+            sys.stderr.write('ERROR: Invalid port number\n')
             sys.exit(1)
 
 
         try:
-            validatePort(self.host_port)
+            server_socket.listen(10)
+            #server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        except socket.error as err:
-            sys.stderr.write("ERROR: Port is not in valid rang4e!")
+        except:
+            sys.stderr.write('ERROR: Invalid port number\n')
             sys.exit(1)
 
-        try:
 
-            sys.stderr.write("ERROR: ")
-            server_socket.settimeout(10)
-            server_socket.connect((self.domain_name, self.host_port))
-            while True:
+
+        server_socket.settimeout(10)
+
+        try:
+            server_socket.listen(10)
+            #server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        except:
+            sys.stderr.write('ERROR: Invalid port number\n')
+            sys.exit(1)
+
+
+        try:
+            # read data from the client
+            data = server_socket.recv(1024)
+            total_len = len(data)
+            while data:
                 data = server_socket.recv(1024)
-                if data:
-                    stuff = server_socket.send(b'confirm-accio\r\n')
-
-                    while True:
-                        data1=server_socket.recv(1024)
-                        if data1:
-                            stuff2 = server_socket.send(b'confirm-accio-again\r\n')
-                            break
-                    break
-
-            stuff2 = server_socket.send(b'\r\n')
-
-            sendfile = open(self.file_name, "rb")
-
-            while True:
-                sendbytes = sendfile.read(10000)
-                if len(sendbytes) == 0:
-                    break
-                connection.send(sendbytes)
-
-
-
-        except socket.error:
-            print("ERROR: Connection failed!")
-            sys.exit(1)
-            return False
-
+                total_len += len(data)
+            # send the total length of the data received back to the client
+            server_socket.send(str(total_len).encode())
+        except socket.timeout:
+            # if the client doesn't send any data for 10 seconds, abort the connection
+            server_socket.send(b'ERROR')
+            print(f'Connection with {addr} timed out')
+            
+        except ConnectionResetError:
+            # if the client resets the connection, just print a message and continue
+            print(f'Connection with {addr} reset by client')
+        finally:
+            # close the connection
+            conn.close()
 
 
 
