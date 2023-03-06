@@ -89,4 +89,4 @@ while not_stopped:
         # if the client resets the connection, just print a message and continue
     #    print("Connection with {address} reset by client")
 
-server_socket.close()
+#server_socket.close()
