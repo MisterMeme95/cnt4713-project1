@@ -44,7 +44,7 @@ def server_program():
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # get instance
     # look closely. The bind() function takes tuple as argument
-    server_socket.bind(('host', port))  # bind host address and port together
+    server_socket.bind((host, port))  # bind host address and port together
 
     # configure how many client the server can listen simultaneously
     server_socket.listen(10)
