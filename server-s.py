@@ -6,7 +6,7 @@ import time
 # define signal handler function
 def signal_handler(signal, frame):
     global not_stopped
-    print("ERROR: Exiting gracefully..."")
+    print('Exiting gracefully...')
     not_stopped = False
     sys.exit(0) # exit with code 0
 
