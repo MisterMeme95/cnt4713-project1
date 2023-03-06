@@ -40,7 +40,7 @@ if port < 0:
 def server_program():
     # get the hostname
     host = socket.gethostname()
-    port = 5000  # initiate port no above 1024
+    port = int(sys.argv[1])  # initiate port no above 1024
 
     server_socket = socket.socket()  # get instance
     # look closely. The bind() function takes tuple as argument
