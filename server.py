@@ -36,7 +36,7 @@ if port < 0:
     sys.exit(1)
 
 # create a socket object
-server_socket = socket.socket()
+server_socket = socket.socket(AF_INET, SOCK_STREAM)
 
 # bind the socket to all interfaces and specified port number
 try:
