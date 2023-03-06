@@ -2,6 +2,8 @@ import socket
 import sys
 import signal
 import time
+import selectors
+selector = selectors.DefaultSelector()
 
 # define signal handler function
 def signal_handler(signal, frame):
@@ -49,8 +51,13 @@ def server_program():
     # configure how many client the server can listen simultaneously
 
     server_socket.listen(10)
+    server_socket.setblocking(False)
+    selector.register(server_socket, selectors.EVENT_READ)
+
     conn, address = server_socket.accept()  # accept new connection
     conn.settimeout(10)
+    conn.setblocking(False)
+    selector.register(conn, selectors.EVENT_READ)
 
         # send accio command to the client
     #conn.send(b'accio\r\n')
