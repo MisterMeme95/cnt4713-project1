@@ -50,42 +50,41 @@ server_socket.listen(10)
 
 #print("Server is listening on port {port}...')
 
-not_stopped = True
+#not_stopped = True
 
 # accept incoming connections
-while not_stopped:
-    try:
-        # wait for a client to connect
-        client_socket, address = server_socket.accept()
+#while not_stopped:
+#    try:
+#        # wait for a client to connect
+#        client_socket, address = server_socket.accept()
         #print("Accepted connection from {address}"")
 
         # set a timeout of 10 seconds for the connection
-        client_socket.settimeout(10)
+#        client_socket.settimeout(10)
 
         # send accio command to the client
-        client_socket.send(b'accio\r\n')
+#        client_socket.send(b'accio\r\n')
 
         # receive data from the client and count the amount of data received
-        total_len = 0
-        data = client_socket.recv(1024)
-        while data:
-            total_len += len(data)
-            data = client_socket.recv(1024)
+#        total_len = 0
+#        data = client_socket.recv(1024)
+#        while data:
+#            total_len += len(data)
+#            data = client_socket.recv(1024)
 
         # print out the total amount of data received
         #print("Total amount of data received from {address}: {total_len} bytes")
 
         # close the connection
-        client_socket.close()
-    except KeyboardInterrupt:
+#        client_socket.close()
+#    except KeyboardInterrupt:
         # exit gracefully if a keyboard interrupt is received
-        not_stopped = False
-    except socket.timeout:
-        # if the client doesn't send any data for 10 seconds, abort the connection
-        client_socket.send(b'ERROR')
-        #print("Connection with {address} timed out")
-        client_socket.close()
-    except ConnectionResetError:
+#3        not_stopped = False
+#    except socket.timeout:
+#        # if the client doesn't send any data for 10 seconds, abort the connection
+#        client_socket.send(b'ERROR')
+#        client_socket.close()
+#    except ConnectionResetError:
         # if the client resets the connection, just print a message and continue
     #    print("Connection with {address} reset by client")
 
