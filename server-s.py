@@ -6,7 +6,7 @@ import time
 # define signal handler function
 def signal_handler(signal, frame):
     global not_stopped
-    print('Exiting gracefully...')
+    #print('Exiting gracefully...')
     not_stopped = False
     sys.exit(0) # exit with code 0
 
@@ -47,9 +47,9 @@ def server_program():
     server_socket.bind((host, port))  # bind host address and port together
 
     # configure how many client the server can listen simultaneously
+
     server_socket.listen(10)
     conn, address = server_socket.accept()  # accept new connection
-
     conn.settimeout(10)
 
         # send accio command to the client
