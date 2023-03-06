@@ -47,16 +47,15 @@ def server_program():
     server_socket.bind((host, port))  # bind host address and port together
 
     # configure how many client the server can listen simultaneously
-    try:
-        server_socket.listen(10)
-        conn, address = server_socket.accept()  # accept new connection
-        conn.settimeout(10)
+
+    server_socket.listen(10)
+    conn, address = server_socket.accept()  # accept new connection
+    conn.settimeout(10)
 
         # send accio command to the client
     #conn.send(b'accio\r\n')
 
-    except:
-        sys.stderr.write("ERROR: Port is not in valid rang4e!")
+
     #print("Connection from: " + str(address))
     while True:
         # receive data stream. it won't accept data packet greater than 1024 bytes
