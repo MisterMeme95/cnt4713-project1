@@ -35,57 +35,41 @@ if port < 0:
     sys.stderr.write("ERROR: Invalid port number\n")
     sys.exit(1)
 
-# create a socket object
-server_socket = socket.socket(AF_INET, SOCK_STREAM)
 
-# bind the socket to all interfaces and specified port number
-try:
-    server_socket.bind(('0.0.0.0', port))
-except OSError:
-    sys.stderr.write("ERROR: Could not bind to port {port}\n")
-    sys.exit(1)
 
-# set the server to listen for incoming connections, with a backlog of 10
-server_socket.listen(10)
+def server_program():
+    # get the hostname
+    host = socket.gethostname()
+    port = 5000  # initiate port no above 1024
 
-#print("Server is listening on port {port}...')
+    server_socket = socket.socket()  # get instance
+    # look closely. The bind() function takes tuple as argument
+    server_socket.bind((host, port))  # bind host address and port together
 
-#not_stopped = True
+    # configure how many client the server can listen simultaneously
+    server_socket.listen(10)
+    conn, address = server_socket.accept()  # accept new connection
 
-# accept incoming connections
-#while not_stopped:
-#    try:
-#        # wait for a client to connect
-#        client_socket, address = server_socket.accept()
-        #print("Accepted connection from {address}"")
-
-        # set a timeout of 10 seconds for the connection
-#        client_socket.settimeout(10)
+    conn.settimeout(10)
 
         # send accio command to the client
-#        client_socket.send(b'accio\r\n')
+    #conn.send(b'accio\r\n')
 
-        # receive data from the client and count the amount of data received
-#        total_len = 0
-#        data = client_socket.recv(1024)
-#        while data:
-#            total_len += len(data)
-#            data = client_socket.recv(1024)
 
-        # print out the total amount of data received
-        #print("Total amount of data received from {address}: {total_len} bytes")
+    #print("Connection from: " + str(address))
+    while True:
+        # receive data stream. it won't accept data packet greater than 1024 bytes
+        data = conn.recv(1024).decode()
+        if not data:
+            # if data is not received break
+            break
+        #print("from connected user: " + str(data))
+        #data = input(' -> ')
+        conn.send(b'accio\r\n')
+        #conn.send(data.encode())  # send data to the client
 
-        # close the connection
-#        client_socket.close()
-#    except KeyboardInterrupt:
-        # exit gracefully if a keyboard interrupt is received
-#3        not_stopped = False
-#    except socket.timeout:
-#        # if the client doesn't send any data for 10 seconds, abort the connection
-#        client_socket.send(b'ERROR')
-#        client_socket.close()
-#    except ConnectionResetError:
-        # if the client resets the connection, just print a message and continue
-    #    print("Connection with {address} reset by client")
+    conn.close()  # close the connection
 
-#server_socket.close()
+
+if __name__ == '__main__':
+    server_program()
