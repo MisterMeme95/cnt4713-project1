@@ -57,7 +57,7 @@ while not_stopped:
     try:
         # wait for a client to connect
         client_socket, address = server_socket.accept()
-        print("Accepted connection from {address}"")
+        #print("Accepted connection from {address}"")
 
         # set a timeout of 10 seconds for the connection
         client_socket.settimeout(10)
@@ -73,7 +73,7 @@ while not_stopped:
             data = client_socket.recv(1024)
 
         # print out the total amount of data received
-        print("Total amount of data received from {address}: {total_len} bytes")
+        #print("Total amount of data received from {address}: {total_len} bytes")
 
         # close the connection
         client_socket.close()
@@ -83,10 +83,10 @@ while not_stopped:
     except socket.timeout:
         # if the client doesn't send any data for 10 seconds, abort the connection
         client_socket.send(b'ERROR')
-        print("Connection with {address} timed out")
+        #print("Connection with {address} timed out")
         client_socket.close()
     except ConnectionResetError:
         # if the client resets the connection, just print a message and continue
-        print("Connection with {address} reset by client")
+    #    print("Connection with {address} reset by client")
 
 server_socket.close()
