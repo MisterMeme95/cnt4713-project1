@@ -6,7 +6,7 @@ import time
 # define signal handler function
 def signal_handler(signal, frame):
     global not_stopped
-    print('Exiting gracefully...')
+    #print('Exiting gracefully...')
     not_stopped = False
     sys.exit(0) # exit with code 0
 
@@ -40,22 +40,23 @@ if port < 0:
 def server_program():
     # get the hostname
     host = socket.gethostname()
-    port = 5000  # initiate port no above 1024
+    port = int(sys.argv[1])  # initiate port no above 1024
 
     server_socket = socket.socket()  # get instance
     # look closely. The bind() function takes tuple as argument
     server_socket.bind((host, port))  # bind host address and port together
 
     # configure how many client the server can listen simultaneously
-    server_socket.listen(10)
-    conn, address = server_socket.accept()  # accept new connection
-
-    conn.settimeout(10)
+    try:
+        server_socket.listen(10)
+        conn, address = server_socket.accept()  # accept new connection
+        conn.settimeout(10)
 
         # send accio command to the client
     #conn.send(b'accio\r\n')
 
-
+    except:
+        sys.stderr.write("ERROR: Port is not in valid rang4e!")
     #print("Connection from: " + str(address))
     while True:
         # receive data stream. it won't accept data packet greater than 1024 bytes
