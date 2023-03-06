@@ -42,7 +42,7 @@ def server_program():
     host = socket.gethostname()
     port = int(sys.argv[1])  # initiate port no above 1024
 
-    server_socket = socket.socket()  # get instance
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # get instance
     # look closely. The bind() function takes tuple as argument
     server_socket.bind((host, port))  # bind host address and port together
 
